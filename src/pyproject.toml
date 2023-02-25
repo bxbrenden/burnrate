@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "burndown"
+version = "0.1.0"
+description = "Calculate your burn rate"
+authors = ["Brenden Hyde <brendenahyde@gmail.com>"]
+readme = "README.md"
+packages = [{include = "burndown"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
