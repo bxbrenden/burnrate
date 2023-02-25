@@ -23,6 +23,12 @@ class Expense:
     @days_of_month.setter
     def days_of_month(self, new_day):
         try:
+            if not isinstance(self._days_of_month, set):
+                try:
+                    self._days_of_month = set(self._days_of_month)
+                except TypeError:
+                    e = f'Expense "{self}" has invalid type for _days_of_month'
+                    raise SystemExit(e)
             assert isinstance(new_day, int)
             assert new_day in range(1, 32)
             self._days_of_month.add(new_day)
@@ -36,8 +42,10 @@ class Expense:
             return 0.0
 
     def __add__(self, other):
-        assert isinstance(other, Expense)
-        return self.total_cost() + other.total_cost()
+        if isinstance(other, Expense):
+            return self.total_cost() + other.total_cost()
+        elif isinstance(other, float) or isinstance(other, int):
+            return self.total_cost() + other
 
     def __radd__(self, other):
         if other == 0:
