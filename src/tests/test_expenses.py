@@ -35,3 +35,12 @@ def test_expense_addition_commutative_multiple():
     radd2 = e3 + e4
     ladd2 = e4 + e3
     assert radd2 == ladd2
+
+
+def test_expense_summation():
+    e1 = Expense(name="Pocket knife", amount=80)
+    e2 = Expense(name="Webcam", amount=100)
+    expenses = [e1, e2]
+    total = e1 + e2
+    sum_total = sum(expenses)
+    assert total == sum_total
