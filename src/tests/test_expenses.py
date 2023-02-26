@@ -1,4 +1,4 @@
-from burndown.entities import *
+from burndown.base import Expense
 
 
 def test_expense_totals():
