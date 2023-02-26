@@ -16,6 +16,14 @@ class Expense:
     active: bool = True
     _days_of_month: Set = field(default_factory=lambda: set([1]))
 
+    def __post_init__(self):
+        if not isinstance(self._days_of_month, set):
+            try:
+                self._days_of_month = set(self._days_of_month)
+            except TypeError:
+                e = f'Invalid type "{type(self._days_of_month)}" for days_of_month'
+                raise SystemExit(e)
+
     @property
     def days_of_month(self):
         return self._days_of_month
