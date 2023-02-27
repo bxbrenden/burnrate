@@ -42,47 +42,25 @@ class Expense:
     name: str
     amount: float = 0.0
     active: bool = True
-    _days_of_month: Set = field(default_factory=lambda: set([1]))
+    frequency: int = 1
 
     def __post_init__(self):
-        if not isinstance(self._days_of_month, set):
+        if not isinstance(self.amount, float):
             try:
-                self._days_of_month = set(self._days_of_month)
+                self.amount = float(self.amount)
             except TypeError:
-                e = f'Invalid type "{type(self._days_of_month)}" for days_of_month'
+                e = f'Invalid type "{type(self.amount)}" for amount'
+                raise SystemExit(e)
+        if not isinstance(self.frequency, int):
+            try:
+                self.frequency = int(self.frequency)
+            except TypeError:
+                e = f'Invalid type "{type(self.frequency)}" for frequency'
                 raise SystemExit(e)
 
-    @property
-    def days_of_month(self):
-        return self._days_of_month
-
-    @days_of_month.setter
-    def days_of_month(self, new_day):
-        try:
-            if not isinstance(self._days_of_month, set):
-                try:
-                    self._days_of_month = set(self._days_of_month)
-                except TypeError:
-                    e = f'Expense "{self}" has invalid type for _days_of_month'
-                    raise SystemExit(e)
-            assert isinstance(new_day, int)
-            assert new_day in range(1, 32)
-            self._days_of_month.add(new_day)
-        except AssertionError:
-            print("Illegal day of month. Not setting.")
-
-    def total_cost(self, days_in_month=31):
-        # days_in_month defaults to 31 since most months have 31 days
-        # Some months have 28 or 30 days, so you can change this value
-        #    in order to determine whether an expense happens in that month
+    def total_cost(self):
         if self.active:
-            if days_in_month == 31:
-                return self.amount * len(self.days_of_month)
-            else:
-                counted = len(
-                    [x for x in self.days_of_month if x in range(1, days_in_month)]
-                )
-                return self.amount * counted
+            return self.amount * self.frequency
         else:
             return 0.0
 
@@ -116,13 +94,8 @@ class Month:
             raise SystemExit(f"Invalid month: {self.name}")
         self.num_days = MONTHS[self.name]
 
-    def total(self, num_days=31):
-        if num_days == 31:
-            return sum(self.expenses)
-        else:
-            return sum(
-                [exp.total_cost(days_in_month=num_days) for exp in self.expenses]
-            )
+    def total(self):
+        return sum(self.expenses)
 
 
 @dataclass
