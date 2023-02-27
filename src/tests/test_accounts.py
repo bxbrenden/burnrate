@@ -14,3 +14,9 @@ def test_account_balance_float():
     """Ensure the account balance is a float, even when given an int."""
     a = Account(name="First Bank of Armenia", acct_type="Checking", balance=int(5500))
     assert isinstance(a.balance, float)
+
+
+def test_account_default_balance():
+    """Ensure the balance is 0.0 if not specified during creation."""
+    a = Account(name="Smells Blargo", acct_type="Checking")
+    assert a.balance == 0.0
