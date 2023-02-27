@@ -1,4 +1,4 @@
-from burndown.base import MONTHS, Year
+from burnrate.base import MONTHS, Year
 
 
 def test_year_init():

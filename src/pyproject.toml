@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "burndown"
+name = "burnrate"
 version = "0.1.0"
 description = "Calculate your burn rate"
 authors = ["Brenden Hyde <brendenahyde@gmail.com>"]
 readme = "README.md"
-packages = [{include = "burndown"}]
+packages = [{include = "burnrate"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"

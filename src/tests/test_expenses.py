@@ -1,4 +1,4 @@
-from burndown.base import Expense
+from burnrate.base import Expense
 
 
 def test_expense_totals():

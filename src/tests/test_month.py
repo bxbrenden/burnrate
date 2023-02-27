@@ -1,4 +1,4 @@
-from burndown.base import MONTHS, Expense, Month
+from burnrate.base import MONTHS, Expense, Month
 
 
 def test_month_init():

@@ -1,4 +1,4 @@
-from burndown.base import Account
+from burnrate.base import Account
 
 
 def test_account_init():
