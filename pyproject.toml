@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "burnrate"
-version = "0.0.2"
+version = "0.0.3"
 description = "Calculate your cash burn rate"
 authors = ["Brenden Hyde <brendenahyde@gmail.com>"]
 readme = "README.md"
