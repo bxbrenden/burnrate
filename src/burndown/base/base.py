@@ -1,12 +1,27 @@
 from dataclasses import dataclass, field
 from typing import List, Set
 
+MONTHS = {
+    "January": 31,
+    "February": 28,
+    "March": 31,
+    "April": 30,
+    "May": 31,
+    "June": 30,
+    "July": 31,
+    "August": 31,
+    "September": 30,
+    "October": 31,
+    "November": 30,
+    "December": 31,
+}
+
 
 @dataclass
 class Account:
     name: str
     acct_type: str
-    balance: float
+    balance: float = 0.0
 
     def __post_init__(self):
         try:
@@ -50,9 +65,18 @@ class Expense:
         except AssertionError:
             print("Illegal day of month. Not setting.")
 
-    def total_cost(self):
+    def total_cost(self, days_in_month=31):
+        # days_in_month defaults to 31 since most months have 31 days
+        # Some months have 28 or 30 days, so you can change this value
+        #    in order to determine whether an expense happens in that month
         if self.active:
-            return self.amount * len(self.days_of_month)
+            if days_in_month == 31:
+                return self.amount * len(self.days_of_month)
+            else:
+                counted = len(
+                    [x for x in self.days_of_month if x in range(1, days_in_month)]
+                )
+                return self.amount * counted
         else:
             return 0.0
 
@@ -79,9 +103,20 @@ class Expense:
 class Month:
     name: str
     expenses: List[Expense] = field(default_factory=list)
+    num_days: int = 31
 
-    def total(self):
-        return sum(self.expenses)
+    def __post_init__(self):
+        if self.name not in MONTHS:
+            raise SystemExit(f"Invalid month: {self.name}")
+        self.num_days = MONTHS[self.name]
+
+    def total(self, num_days=31):
+        if num_days == 31:
+            return sum(self.expenses)
+        else:
+            return sum(
+                [exp.total_cost(days_in_month=num_days) for exp in self.expenses]
+            )
 
 
 @dataclass
@@ -92,5 +127,10 @@ class Year:
     def total(self):
         return sum([month.total() for month in self.months])
 
+    def __post_init__(self):
+        for m in MONTHS:
+            month = Month(name=m)
+            self.months.append(month)
 
-__all__ = ["Account", "Expense", "Month", "Year"]
+
+__all__ = ["Account", "Expense", "Month", "Year", "MONTHS"]
