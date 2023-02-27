@@ -63,7 +63,7 @@ class Expense:
             "name": self.name,
             "amount": self.amount,
             "active": self.active,
-            "frequency": self.frequency
+            "frequency": self.frequency,
         }
         return Series(data=d, index=[x for x in d.keys()])
 
@@ -105,6 +105,10 @@ class Month:
 
     def total(self):
         return sum(self.expenses)
+
+    def to_dataframe(self):
+        exp_series_list = [e.to_series() for e in self.expenses]
+        return DataFrame(exp_series_list)
 
 
 @dataclass
