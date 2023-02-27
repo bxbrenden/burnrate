@@ -1,7 +1,7 @@
-import pandas as pd
-
 from dataclasses import dataclass, field
 from typing import List, Set
+
+import pandas as pd
 
 MONTHS = {
     "January": 31,
@@ -33,11 +33,7 @@ class Account:
             raise SystemExit(e)
 
     def to_series(self):
-        d = {
-            "name": self.name,
-            "acct_type": self.acct_type,
-            "balance": self.balance
-        }
+        d = {"name": self.name, "acct_type": self.acct_type, "balance": self.balance}
         return pd.Series(data=d, index=[i for i in d.keys()])
 
 
