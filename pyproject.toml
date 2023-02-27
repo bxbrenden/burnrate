@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "burnrate"
-version = "0.1.0"
-description = "Calculate your burn rate"
+version = "0.0.1"
+description = "Calculate your cash burn rate"
 authors = ["Brenden Hyde <brendenahyde@gmail.com>"]
 readme = "README.md"
-packages = [{include = "burnrate"}]
+packages = [{include = "src/burnrate"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -14,7 +14,25 @@ flake8-bugbear = "^23.2.13"
 flake8-isort = "^6.0.0"
 pytest = "^7.2.1"
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "burnrate"
+version = "0.0.1"
+authors = [
+  { name="Brenden Hyde", email="brendenahyde@gmail.com" },
+]
+description = "Calculate your cash burn rate"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/bxbrenden/burnrate"
+"Bug Tracker" = "https://github.com/bxbrenden/burnrate/issues"
