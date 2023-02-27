@@ -1,3 +1,5 @@
+from pandas import Series
+
 from burnrate.base import Expense
 
 
@@ -44,3 +46,10 @@ def test_expense_summation():
     total = e1 + e2
     sum_total = sum(expenses)
     assert total == sum_total
+
+
+def test_expense_pd_series():
+    """Ensure an expense can be converted into a Pandas Series."""
+    e1 = Expense(name="Gardettos", amount=5.00, frequency=5)
+    s = e1.to_series()
+    assert isinstance(s, Series)

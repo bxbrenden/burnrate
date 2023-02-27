@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Set
 
-import pandas as pd
+from pandas import DataFrame, Series
 
 MONTHS = {
     "January": 31,
@@ -34,7 +34,7 @@ class Account:
 
     def to_series(self):
         d = {"name": self.name, "acct_type": self.acct_type, "balance": self.balance}
-        return pd.Series(data=d, index=[i for i in d.keys()])
+        return Series(data=d, index=[i for i in d.keys()])
 
 
 @dataclass
@@ -57,6 +57,15 @@ class Expense:
             except TypeError:
                 e = f'Invalid type "{type(self.frequency)}" for frequency'
                 raise SystemExit(e)
+
+    def to_series(self):
+        d = {
+            "name": self.name,
+            "amount": self.amount,
+            "active": self.active,
+            "frequency": self.frequency
+        }
+        return Series(data=d, index=[x for x in d.keys()])
 
     def total_cost(self):
         if self.active:
