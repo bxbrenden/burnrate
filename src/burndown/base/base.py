@@ -8,6 +8,13 @@ class Account:
     acct_type: str
     balance: float
 
+    def __post_init__(self):
+        try:
+            self.balance = float(self.balance)
+        except TypeError:
+            e = f'Invalid type "{type(self.balance)}" for Account: {self}'
+            raise SystemExit(e)
+
 
 @dataclass
 class Expense:
