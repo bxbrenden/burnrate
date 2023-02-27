@@ -1,3 +1,5 @@
+import pandas as pd
+
 from dataclasses import dataclass, field
 from typing import List, Set
 
@@ -29,6 +31,14 @@ class Account:
         except TypeError:
             e = f'Invalid type "{type(self.balance)}" for Account: {self}'
             raise SystemExit(e)
+
+    def to_series(self):
+        d = {
+            "name": self.name,
+            "acct_type": self.acct_type,
+            "balance": self.balance
+        }
+        return pd.Series(data=d, index=[i for i in d.keys()])
 
 
 @dataclass

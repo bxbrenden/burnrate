@@ -1,3 +1,5 @@
+from pandas import Series
+
 from burnrate.base import Account
 
 
@@ -20,3 +22,10 @@ def test_account_default_balance():
     """Ensure the balance is 0.0 if not specified during creation."""
     a = Account(name="Smells Blargo", acct_type="Checking")
     assert a.balance == 0.0
+
+
+def test_account_pd_series():
+    """Ensure I can get a Pandas Series version of an Account."""
+    a = Account(name="Pandas Savings", acct_type="Savings", balance=121.5)
+    s = a.to_series()
+    assert isinstance(s, Series)
