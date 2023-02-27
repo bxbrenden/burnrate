@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "burnrate"
-version = "0.0.1"
+version = "0.0.2"
 description = "Calculate your cash burn rate"
 authors = ["Brenden Hyde <brendenahyde@gmail.com>"]
 readme = "README.md"
-packages = [{include = "src/burnrate"}]
+packages = [{include = "burnrate", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
